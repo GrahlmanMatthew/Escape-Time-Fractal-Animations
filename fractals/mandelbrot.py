@@ -27,7 +27,7 @@ class Mandelbrot:
         self.imag_axis = np.linspace(self.start_y, self.start_y + self.height, self.height * self.dpu)
 
     def __str__(self):
-        return "Mandelbrot set parameters;\n\tStart X: %d,\n\tStart Y: %d,\n\tWidth: %d,\n\tHeight: %d,\n\tDPU: %d" % (self.start_x, self.start_y, self.width, self.height, self.dpu)
+        return "Mandelbrot set parameters;\n\tStart X: %d,\n\tStart Y: %d,\n\tWidth: %d,\n\tHeight: %d,\n\tDPU: %d,\n\tNUM FRAMES: %d" % (self.start_x, self.start_y, self.width, self.height, self.dpu, self.num_frames)
 
     def create_animation(self, OUTPUT_PATH=GIF_OUTPUT_PATH):
         """ Creates a figSize_x by figSize_y figure, calls the animate function to plot the Mandelbrot set on it, the save the resulting animation as a .gif file.
