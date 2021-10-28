@@ -6,7 +6,7 @@ import matplotlib.animation as animation
 GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'mandelbrot.gif'))
 
 class Mandelbrot:  
-    def __init__(self, X=-2, Y=-1.5, WIDTH=3, HEIGHT=3, DPU=250):
+    def __init__(self, startX= -2, startY= -1.5, WIDTH= 3, HEIGHT= 3, DPU= 250, FRAMES=45):
         """ Constructor for the Mandelbrot set class which initializes the required parameters to defaults if none are provided.
         
             :opt_param X: x coordinate to start at on the x-axis
@@ -16,11 +16,12 @@ class Mandelbrot:
             :opt_param DPU: pixel density per unit
         """
 
-        self.start_x = X
-        self.start_y = Y
+        self.start_x = startX
+        self.start_y = startY
         self.width = WIDTH
         self.height = HEIGHT
         self.dpu = DPU
+        self.num_frames = FRAMES
         self.real_axis = np.linspace(self.start_x, self.start_x + self.width, self.width * self.dpu)
         self.imag_axis = np.linspace(self.start_y, self.start_y + self.height, self.height * self.dpu)
 
@@ -37,7 +38,7 @@ class Mandelbrot:
             figSize_y = 10
             fig = plt.figure(figsize=(figSize_x, figSize_y))
 
-            anim = animation.FuncAnimation(fig, self.animate, frames=45, interval=120, blit=True)
+            anim = animation.FuncAnimation(fig, self.animate, frames=self.num_frames, interval=120, blit=True)
             anim.save(OUTPUT_PATH, writer='ImageMagickWriter')
     
     def animate(self, i):
