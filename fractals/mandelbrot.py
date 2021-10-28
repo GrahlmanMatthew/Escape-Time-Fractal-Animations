@@ -9,11 +9,12 @@ class Mandelbrot:
     def __init__(self, startX= -2, startY= -1.5, WIDTH= 3, HEIGHT= 3, DPU= 250, FRAMES=45):
         """ Constructor for the Mandelbrot set class which initializes the required parameters to defaults if none are provided.
         
-            :opt_param X: x coordinate to start at on the x-axis
-            :opt_param Y: y coordinate to start at on the y-axis
+            :opt_param startX: x coordinate to start at on the x-axis
+            :opt_param startY: y coordinate to start at on the y-axis
             :opt_param WIDTH: length of the x-axis, as a positive int
             :opt_param HEIGHT:  length of the y-axis, as a positive int
             :opt_param DPU: pixel density per unit
+            :opt_param FRAMES: number of frames to generate in the gif
         """
 
         self.start_x = startX
