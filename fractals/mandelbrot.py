@@ -6,12 +6,21 @@ import matplotlib.animation as animation
 GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'mandelbrot.gif'))
 
 class Mandelbrot:  
-    def __init__(self):
-        self.start_x = -2
-        self.start_y = -1.5
-        self.width = 3
-        self.height = 3
-        self.dpu = 250  # pixel density per unit
+    def __init__(self, X=-2, Y=-1.5, WIDTH=3, HEIGHT=3, DPU=250):
+        """ Constructor for the Mandelbrot set class which initializes the required parameters to defaults if none are provided.
+        
+            :opt_param X: x coordinate to start at on the x-axis
+            :opt_param Y: y coordinate to start at on the y-axis
+            :opt_param WIDTH: length of the x-axis, as a positive int
+            :opt_param HEIGHT:  length of the y-axis, as a positive int
+            :opt_param DPU: pixel density per unit
+        """
+
+        self.start_x = X
+        self.start_y = Y
+        self.width = WIDTH
+        self.height = HEIGHT
+        self.dpu = DPU
         self.real_axis = np.linspace(self.start_x, self.start_x + self.width, self.width * self.dpu)
         self.imag_axis = np.linspace(self.start_y, self.start_y + self.height, self.height * self.dpu)
 
@@ -21,7 +30,7 @@ class Mandelbrot:
     def create_animation(self, OUTPUT_PATH=GIF_OUTPUT_PATH):
         """ Creates a figSize_x by figSize_y figure, calls the animate function to plot the Mandelbrot set on it, the save the resulting animation as a .gif file.
             
-            :param OUTPATH_PATH: location to save the .gif animation of the Mandelbrot set. Defaults to ./output/mandelbrot.gif
+            :opt_param OUTPATH_PATH: path to save the animated .gif of the Mandelbrot set. Defaults to ./output/mandelbrot.gif
         """
         if not os.path.isfile(OUTPUT_PATH):
             figSize_x = 10
