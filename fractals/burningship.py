@@ -6,7 +6,7 @@ import matplotlib.animation as animation
 GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'burningship.gif'))
 
 class BurningShip:  
-    def __init__(self, startX= -2, startY= -1.5, WIDTH= 3, HEIGHT= 3, DPU= 250, FRAMES=35):
+    def __init__(self, startX= -2, startY= -1.5, WIDTH= 3, HEIGHT= 3, DPU= 250, FRAMES=15):
         """ Constructor for the Burning Ship set class which initializes the required parameters to defaults if none are provided.
         
             :opt_param startX: x coordinate to start at on the x-axis
@@ -61,7 +61,7 @@ class BurningShip:
                 x[i, j] = self.burningship(self.real_axis[i], self.imag_axis[j], num_iterations)
 
         # associate colours with iterations
-        img = ax.imshow(x.T, interpolation='bicubic', cmap='magma')
+        img = ax.imshow(x.T, interpolation='bicubic', cmap='viridis')
         return [img]
 
     def burningship(self, x, y, num_iterations):
@@ -75,13 +75,14 @@ class BurningShip:
         """ 
 
         c = complex(-0.8, -0.8)
+        zx = x
+        zy = y
         
         for i in range(num_iterations):
-            zx = x**2 - y**2 + x
-            zy = 2 * abs(x*y) + y
-            z = complex(zx, zy)
-            z = z**2 + c
+            temp = zx**2 - zy**2 + x
+            zy = 2 * abs(zx*zy) + y
+            zx = temp
+            z = complex(zx, zy)**2 + c
             if abs(z) > 4:
                return i
         return num_iterations-1
-
