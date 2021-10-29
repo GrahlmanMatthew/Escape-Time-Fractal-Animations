@@ -65,7 +65,7 @@ class Julia:
             for j in range(len(self.imag_axis)):
                 x[i, j] = self.julia_quadratic(self.real_axis[i], self.imag_axis[j], cx, cy, self.threshold)
         
-        img = ax.imshow(x.T, interpolation="bicubic", cmap='magma')
+        img = ax.imshow(x.T, interpolation="bicubic", cmap='viridis')
         return [img]
 
     def julia_quadratic(self, zx, zy, cx, cy, threshold):
