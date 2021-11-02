@@ -7,7 +7,7 @@ GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'
 
 class Julia:
     def __init__(self):
-        """ Constructor for the Julioa set class which initializes the required parameters to defaults if none are provided.
+        """ Constructor for the Julia set class which initializes the required parameters to defaults if none are provided.
         
             :opt_param startX: x coordinate to start at on the x-axis
             :opt_param startY: y coordinate to start at on the y-axis
