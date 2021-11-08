@@ -6,8 +6,9 @@ import matplotlib.animation as animation
 GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'julia', 'julia.gif'))
 
 class Julia:
-    def __init__(self, startX=-2, startY=-2, WIDTH=4, HEIGHT=4, DPU=200, THRESH=20, FRAMES=100, PATH=GIF_OUTPUT_PATH):
-        """ :opt_param startX: x coordinate to start at on the x-axis
+    def __init__(self, R=0.7885, startX=-2, startY=-2, WIDTH=4, HEIGHT=4, DPU=200, THRESH=20, FRAMES=100, PATH=GIF_OUTPUT_PATH):
+        """ :opt_param R: fixed value where R^2 - R >= |c|
+            :opt_param startX: x coordinate to start at on the x-axis
             :opt_param startY: y coordinate to start at on the y-axis
             :opt_param WIDTH: length of the x-axis, as a positive int
             :opt_param HEIGHT:  length of the y-axis, as a positive int
@@ -16,6 +17,7 @@ class Julia:
             :opt_param FRAMES: number of frames to generate in the gif
             :opt_param PATH: output file name to save generated animation
         """
+        self.r = R
         self.start_x = startX
         self.start_y = startY
         self.width = WIDTH
@@ -30,6 +32,7 @@ class Julia:
     def __str__(self):
         fm = "\n\t"
         output = "Julia Set Parameters;" + fm
+        output += "R: %f%s" % (self.r, fm)
         output += "Start X: %d%s" % (self.start_x, fm)
         output += "Start Y: %d%s" % (self.start_y, fm)
         output += "Width: %d%s" % (self.width, fm)
@@ -40,7 +43,7 @@ class Julia:
         output += "Outpath Path: %s%s" % (self.output_path, fm)       
         return output
 
-    def create_animation(self, OUTPUT_PATH=GIF_OUTPUT_PATH):
+    def create_animation(self):
         """ Creates a figSize_x by figSize_y figure, calls the animate function to plot the Julia set on it, the save the resulting animation as a .gif file.
             :opt_param OUTPUT_PATH: path to save the animated .gif of the Julia set. Defaults to ./output/julia.gif
         """
@@ -50,7 +53,7 @@ class Julia:
             fig = plt.figure(figsize=(figSize_x, figSize_y))
 
             anim = animation.FuncAnimation(fig, self.animate, frames= self.num_frames, interval=50, blit=True)
-            anim.save(OUTPUT_PATH, writer='ImageMagickWriter') 
+            anim.save(self.output_path, writer='ImageMagickWriter') 
         else:
             print("ERROR - File Already Exists! Skipping Animation Generation...")
    
@@ -58,17 +61,15 @@ class Julia:
         """ The animate function is called by matplotlib.animation librarys FuncAnimation to generate each frame in the output .gif file.
             :param int i: the frame number, starting from 0, to animate.
         """
-        r = 0.7885
-        a = np.linspace(0, 2*np.pi, self.num_frames)
-        
         ax = plt.axes()  # create an axes object
         ax.clear()  # clear axes object
         ax.set_xticks([], minor=False)   # clear x ticks
         ax.set_yticks([], minor=False)   # clear y ticks
         
+        a = np.linspace(0, 2*np.pi, self.num_frames)
         x = np.empty((len(self.real_axis), len(self.imag_axis)))
-        cx = r * np.cos(a[i])
-        cy = r * np.sin(a[i])
+        cx = self.r 
+        cy = self.r + a[i]
         
         for i in range(len(self.real_axis)):
             for j in range(len(self.imag_axis)):
