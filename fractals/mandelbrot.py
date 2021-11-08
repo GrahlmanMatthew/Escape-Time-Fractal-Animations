@@ -13,7 +13,7 @@ class Mandelbrot:
             :opt_param HEIGHT:  length of the y-axis, as a positive int
             :opt_param DPU: pixel density per unit
             :opt_param FRAMES: number of frames to generate in the gif
-            :opt_param PATH: output path including file name to save generated animation
+            :opt_param PATH: output file name to save generated animation
         """
         self.start_x = startX
         self.start_y = startY
@@ -23,7 +23,7 @@ class Mandelbrot:
         self.num_frames = FRAMES
         self.real_axis = np.linspace(self.start_x, self.start_x + self.width, self.width * self.dpu)
         self.imag_axis = np.linspace(self.start_y, self.start_y + self.height, self.height * self.dpu)
-        self.output_path = PATH
+        self.output_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'julia', PATH))
 
     def __str__(self):
         fm = "\n\t"

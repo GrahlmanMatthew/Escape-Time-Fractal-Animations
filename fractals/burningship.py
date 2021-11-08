@@ -14,7 +14,7 @@ class BurningShip(Mandelbrot):
             :opt_param HEIGHT:  length of the y-axis, as a positive int
             :opt_param DPU: pixel density per unit
             :opt_param FRAMES: number of frames to generate in the gif
-            :opt_param PATH: output path including file name to save generated animation
+            :opt_param PATH: output file name to save generated animation
         """
         super().__init__(startX=startX, startY=startY, WIDTH=WIDTH, HEIGHT=HEIGHT, DPU=DPU, FRAMES=FRAMES, PATH=PATH)
 
