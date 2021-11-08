@@ -3,20 +3,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'mandelbrot.gif'))
+GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'mandelbrot', 'mandelbrot.gif'))
 
 class Mandelbrot:  
-    def __init__(self, startX= -2, startY= -1.5, WIDTH= 3, HEIGHT= 3, DPU= 250, FRAMES=45):
-        """ Constructor for the Mandelbrot set class which initializes the required parameters to defaults if none are provided.
-        
-            :opt_param startX: x coordinate to start at on the x-axis
+    def __init__(self, startX= -2, startY= -1.5, WIDTH= 3, HEIGHT= 3, DPU= 250, FRAMES=45, PATH=GIF_OUTPUT_PATH):
+        """ :opt_param startX: x coordinate to start at on the x-axis
             :opt_param startY: y coordinate to start at on the y-axis
             :opt_param WIDTH: length of the x-axis, as a positive int
             :opt_param HEIGHT:  length of the y-axis, as a positive int
             :opt_param DPU: pixel density per unit
             :opt_param FRAMES: number of frames to generate in the gif
         """
-
         self.start_x = startX
         self.start_y = startY
         self.width = WIDTH
@@ -25,22 +22,31 @@ class Mandelbrot:
         self.num_frames = FRAMES
         self.real_axis = np.linspace(self.start_x, self.start_x + self.width, self.width * self.dpu)
         self.imag_axis = np.linspace(self.start_y, self.start_y + self.height, self.height * self.dpu)
+        self.output_path = PATH
 
     def __str__(self):
-        return "Mandelbrot set parameters;\n\tStart X: %d,\n\tStart Y: %d,\n\tWidth: %d,\n\tHeight: %d,\n\tDPU: %d,\n\tNUM FRAMES: %d" % (self.start_x, self.start_y, self.width, self.height, self.dpu, self.num_frames)
-
-    def create_animation(self, OUTPUT_PATH=GIF_OUTPUT_PATH):
+        fm = "\n\t"
+        output = "Mandelbrot Set Parameters;", fm
+        output += "Start X: ", self.start_x, fm
+        output += "Start Y: ", self.start_y, fm
+        output += "Width: ", self.width, fm
+        output += "Height: ", self.height, fm
+        output += "DPU: ", self.dpu, fm
+        output += "Number of Frames: ", self.num_frames, fm
+        output += "Outpath Path:", self.output_path, fm
+        return output
+        
+    def create_animation(self):
         """ Creates a figSize_x by figSize_y figure, calls the animate function to plot the Mandelbrot set on it, the save the resulting animation as a .gif file.
-            
             :opt_param OUTPATH_PATH: path to save the animated .gif of the Mandelbrot set. Defaults to ./output/mandelbrot.gif
         """
-        if not os.path.isfile(OUTPUT_PATH):
+        if not os.path.isfile(self.output_path):
             figSize_x = 10
             figSize_y = 10
             fig = plt.figure(figsize=(figSize_x, figSize_y))
 
             anim = animation.FuncAnimation(fig, self.animate, frames=self.num_frames, interval=120, blit=True)
-            anim.save(OUTPUT_PATH, writer='ImageMagickWriter')
+            anim.save(self.output_path, writer='ImageMagickWriter')
     
     def animate(self, i):
         """ The animate function is called by matplotlib.animation librarys FuncAnimation to generate each frame in the output .gif file.
