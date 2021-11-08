@@ -13,6 +13,7 @@ class Mandelbrot:
             :opt_param HEIGHT:  length of the y-axis, as a positive int
             :opt_param DPU: pixel density per unit
             :opt_param FRAMES: number of frames to generate in the gif
+            :opt_param PATH: output path including file name to save generated animation
         """
         self.start_x = startX
         self.start_y = startY
@@ -47,6 +48,8 @@ class Mandelbrot:
 
             anim = animation.FuncAnimation(fig, self.animate, frames=self.num_frames, interval=120, blit=True)
             anim.save(self.output_path, writer='ImageMagickWriter')
+        else:
+            print("ERROR - File Already Exists! Skipping Animation Generation...")
     
     def animate(self, i):
         """ The animate function is called by matplotlib.animation librarys FuncAnimation to generate each frame in the output .gif file.
