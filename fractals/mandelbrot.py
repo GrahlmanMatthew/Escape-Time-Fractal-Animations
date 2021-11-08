@@ -26,14 +26,14 @@ class Mandelbrot:
 
     def __str__(self):
         fm = "\n\t"
-        output = "Mandelbrot Set Parameters;", fm
-        output += "Start X: ", self.start_x, fm
-        output += "Start Y: ", self.start_y, fm
-        output += "Width: ", self.width, fm
-        output += "Height: ", self.height, fm
-        output += "DPU: ", self.dpu, fm
-        output += "Number of Frames: ", self.num_frames, fm
-        output += "Outpath Path:", self.output_path, fm
+        output = "Mandelbrot Set Parameters;" + fm
+        output += "Start X: %d%s" % (self.start_x, fm)
+        output += "Start Y: %d%s" % (self.start_y, fm)
+        output += "Width: %d%s" % (self.width, fm)
+        output += "Height: %d%s" % (self.height, fm)
+        output += "DPU: %d%s" % (self.dpu, fm)
+        output += "Number of Frames: %d%s" % (self.num_frames, fm)
+        output += "Outpath Path: %s%s" % (self.output_path, fm)       
         return output
         
     def create_animation(self):
