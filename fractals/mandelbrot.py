@@ -55,7 +55,6 @@ class Mandelbrot:
         """ The animate function is called by matplotlib.animation librarys FuncAnimation to generate each frame in the output .gif file.
             :param int i: the frame number, starting from 0, to animate.
         """
-
         ax = plt.axes() # axes obj
         ax.clear()  # clear axes object
         ax.set_xticks([], minor=False)   # clear x ticks
@@ -81,7 +80,6 @@ class Mandelbrot:
             :param float y: y component of init complex #
             :param int num_iterations: the # of iterations to determine whether the sequence converges
         """ 
-
         c = complex(x, y)
         z = complex(0, 0)
         
