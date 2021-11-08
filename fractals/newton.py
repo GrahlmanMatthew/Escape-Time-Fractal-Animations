@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-GIF_OUTPUT_PATH_ROOT = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'newton', 'newton.gif'))
+GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'newton', 'newton.gif'))
 TOL = 1.e-8
 
 class Newton():
@@ -46,7 +46,7 @@ class Newton():
         output += "Outpath Path: %s%s" % (self.output_path, fm)       
         return output
 
-    def newton_cb_root(self, z0, MAX_IT=1000):
+    def newton(self, z0, MAX_IT=1000):
         """ The Newton-Raphson method applied to f(z). Returns the root found or False if no convergence was found. """
         z = z0
         for i in range(MAX_IT):
