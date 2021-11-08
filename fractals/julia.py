@@ -3,52 +3,61 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'julia.gif'))
+GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'julia', 'julia.gif'))
 
 class Julia:
-    def __init__(self):
-        """ Constructor for the Julia set class which initializes the required parameters to defaults if none are provided.
-        
-            :opt_param startX: x coordinate to start at on the x-axis
+    def __init__(self, startX=-2, startY=-2, WIDTH=4, HEIGHT=4, DPU=200, THRESH=20, FRAMES=100, PATH=GIF_OUTPUT_PATH):
+        """ :opt_param startX: x coordinate to start at on the x-axis
             :opt_param startY: y coordinate to start at on the y-axis
             :opt_param WIDTH: length of the x-axis, as a positive int
             :opt_param HEIGHT:  length of the y-axis, as a positive int
             :opt_param DPU: pixel density per unit
             :opt_param THRESHOLD: max # of iterations
             :opt_param FRAMES: number of frames to generate in the gif
+            :opt_param PATH: output file name to save generated animation
         """
-
-        self.start_x = -2
-        self.start_y = -2
-        self.width = 4
-        self.height = 4
-        self.dpu = 200
-        self.threshold = 20
-        self.num_frames = 100
+        self.start_x = startX
+        self.start_y = startY
+        self.width = WIDTH
+        self.height = HEIGHT
+        self.dpu = DPU
+        self.threshold = THRESH
+        self.num_frames = FRAMES
         self.real_axis = np.linspace(self.start_x, self.start_x + self.width, self.width * self.dpu)
         self.imag_axis = np.linspace(self.start_y, self.start_y + self.height, self.height * self.dpu)
+        self.output_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'julia', PATH))
 
     def __str__(self):
-        return "Julia set parameters;\n\tStart X: %d,\n\tStart Y: %d,\n\tWidth: %d,\n\tHeight: %d,\n\tDPU: %d,\n\tThreshold: %d, NUM FRAMES: %d" % (self.start_x, self.start_y, self.width, self.height, self.dpu, self.threshold, self.num_frames)
+        fm = "\n\t"
+        output = "Julia Set Parameters;" + fm
+        output += "Start X: %d%s" % (self.start_x, fm)
+        output += "Start Y: %d%s" % (self.start_y, fm)
+        output += "Width: %d%s" % (self.width, fm)
+        output += "Height: %d%s" % (self.height, fm)
+        output += "DPU: %d%s" % (self.dpu, fm)
+        output += "Threshold: %d%s" % (self.threshold, fm)
+        output += "Number of Frames: %d%s" % (self.num_frames, fm)
+        output += "Outpath Path: %s%s" % (self.output_path, fm)       
+        return output
 
     def create_animation(self, OUTPUT_PATH=GIF_OUTPUT_PATH):
-        """ Creates a figSize_x by figSize_y figure, calls the animate function to plot the Julia set, then saves the resulting animation as a .gif file.
-
+        """ Creates a figSize_x by figSize_y figure, calls the animate function to plot the Julia set on it, the save the resulting animation as a .gif file.
             :opt_param OUTPUT_PATH: path to save the animated .gif of the Julia set. Defaults to ./output/julia.gif
         """
-        if not os.path.isfile(OUTPUT_PATH):
+        if not os.path.isfile(self.output_path):
             figSize_x = 10
             figSize_y = 10
             fig = plt.figure(figsize=(figSize_x, figSize_y))
 
             anim = animation.FuncAnimation(fig, self.animate, frames= self.num_frames, interval=50, blit=True)
             anim.save(OUTPUT_PATH, writer='ImageMagickWriter') 
-
+        else:
+            print("ERROR - File Already Exists! Skipping Animation Generation...")
+   
     def animate(self, i):
         """ The animate function is called by matplotlib.animation librarys FuncAnimation to generate each frame in the output .gif file.
             :param int i: the frame number, starting from 0, to animate.
         """
-
         r = 0.7885
         a = np.linspace(0, 2*np.pi, self.num_frames)
         
@@ -79,7 +88,6 @@ class Julia:
             :param float cy: y component of the constant c
             :param int threshold: the # of iterations to determine whether the sequence converges
         """
-
         z = complex(zx, zy)
         c = complex(cx, cy)
         
