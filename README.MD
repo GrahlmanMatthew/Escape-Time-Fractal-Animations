@@ -7,7 +7,7 @@ While many distinct types of fractals exist, this project only focuses on animat
 ## The Mandelbrot Set
 The Mandelbrot set is the set of complex numbers c for which the function f<sub>c</sub>(z) = z<sup>2</sup> + c does not diverge to infinity when iterated from z<sub>0</sub> = 0. It’s formal definition is credited to Adrien Douady who named it in memory of Benoit Mandelbrot, a pioneer of fractal geometry.
 
-<img src="./output/mandelbrot/sample-mandelbrot.gif" alt="Mandelbrot Set; X=-2, Y=-1.5, Width=3, Height=3, and DPU=250" width="300" height="300">
+<img src="./output/mandelbrot/sample-mandelbrot.gif" width="300" height="300" title="Mandelbrot Set; X=-2, Y=-1.5, Width=3, Height=3, and DPU=250">
 
 ## The Julia Set
 The Julia set, defined by the function f<sub>c</sub>(z) = z<sup>2</sup> + c, consists of values such that an arbitrarily small perturbation can cause chaotic, changes in the sequence of iterated function values. For a fixed parameter c, the Julia set is found by iterating the function on each point z. The set was named after French mathematician Gaston Julia during the early 20th century.
