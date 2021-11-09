@@ -7,7 +7,7 @@ GIF_OUTPUT_PATH = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'
 TOL = 1.e-8
 
 class Newton():
-    def __init__(self, f=lambda z:z**3 - 1, fprime=lambda z:3*z**2,startX=-1, startY=-1, WIDTH=2, HEIGHT=2, FRAMES=50, PATH=GIF_OUTPUT_PATH, COLOUR_BY="iteration"):
+    def __init__(self, f=lambda z:z**3 - 1, fprime=lambda z:3*z**2,startX=-1, startY=-1, WIDTH=2, HEIGHT=2, FRAMES=80, PATH=GIF_OUTPUT_PATH, COLOUR_BY="iteration"):
         """ :opt_param f: function whose shape to model
             :opt_param fprime: derivative of f
             :opt_param startX: x coordinate to start at on the x-axis
@@ -29,7 +29,7 @@ class Newton():
         self.frames = FRAMES
         self.real_axis = np.linspace(self.start_x, self.start_x + self.width, self.width * self.dpu)
         self.imag_axis = np.linspace(self.start_y, self.start_y + self.height, self.height * self.dpu)
-        self.output_path = PATH
+        self.output_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'output', 'newton', PATH))
         self.cb = COLOUR_BY
 
     def __str__(self):
